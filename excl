@@ -1,0 +1,71 @@
+#### 5 Making updates
+Script: 4-gcloud-appeng-update.sh
+
+
+
+
+
+
+
+
+
+
+## How to use
+## Check if the Batcache plugin is working
+On the plugin page in the WordPress dashboard, you should see 2
+drop-ins are activated; `advanced-cache.php` and `object-cache.php`.
+
+To make sure it’s really working, you can open an incognito window and
+visit the site because the cache plugin only serves from cache to
+anonymous users. Then go to
+[the memcache dashboard in the Cloud Console][memcache-dashboard] and
+check the hit ratio and number of items in cache.
+
+## Various workflows
+
+### Install/Update plugins/themes
+
+Because the wp-content directory on the server is read-only, you have
+to do this locally. Run WordPress locally and update plugins/themes in
+the local Dashboard, then deploy, then activate them in the production
+Dashboard. You can also use the `wp-cli` utility as follows:
+
+```
+# To update all the plugins
+$ vendor/bin/wp plugin update --all --path=wordpress
+# To update all the themes
+$ vendor/bin/wp theme update --all --path=wordpress
+```
+
+### Remove plugins/themes
+
+First Deactivate them in the production Dashboard, then remove them
+completely locally. The next deployment will remove those files from
+the production environment.
+
+### Update WordPress itself
+
+Most of the case, just download the newest WordPress and overwrite the
+existing wordpress directory. It is still possible that the existing
+config files are not compatible with the newest WordPress, so please
+update the config file manually in that case.
+
+### Update the base image
+
+We sometimes release the security update for
+[the php-docker image][php-docker]. Then you’ll have to re-deploy your
+WordPress instance to get the security update.
+
+Enjoy your WordPress installation!
+
+[appengine-flexible]: https://cloud.google.com/appengine/docs/flexible/
+[sql-settings]: https://console.cloud.google.com/sql/instances
+[memcache-dashboard]: https://console.cloud.google.com/appengine/memcache
+[composer]: https://getcomposer.org/
+[dev-console]: https://console.cloud.google.com/
+[cloud-sql-api-enable]: https://console.cloud.google.com/flows/enableapi?apiid=sqladmin
+[app-engine-setting]: https://console.cloud.google.com/appengine/settings
+[gcloud-sdk]: https://cloud.google.com/sdk/
+[cloud-sql-proxy-download]: https://cloud.google.com/sql/docs/external#appaccess
+[credentials-section]: https://console.cloud.google.com/apis/credentials/
+[php-docker]: https://github.com/googlecloudplatform/php-docker
