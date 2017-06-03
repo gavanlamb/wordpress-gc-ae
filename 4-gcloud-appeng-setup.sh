@@ -1,11 +1,5 @@
 #!/bin/bash
-#install gcloud - follow the instructions at this link https://cloud.google.com/sdk/docs/quickstart-linux and install google cloud for root
-#please initialize gcloud - gcloud init
-#'default' network is used
 #create a service account for the project, create a json key for this user
-PATH=$PATH:~/opt/bin
-PATH=~/opt/bin:$PATH
-
 PROJECT_ID="project-1"
 GCE_REGION="asia-northeast1"
 GCE_ZONE="a"
@@ -65,19 +59,3 @@ echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 cd wordpress-project
 gcloud app deploy --promote --stop-previous-version app.yaml cron.yaml
 gcloud app browse
-
-#echo -e "\n";
-#echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-#echo -e "\e[42m\e[39m             UPDATE WORDPRESS              \e[0m\e[0m";
-#echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-#vendor/bin/wp core update --path=wordpress
-#vendor/bin/wp plugin update --all --path=wordpress
-#cp wordpress/wp-content/plugins/batcache/advanced-cache.php \
-#wordpress/wp-content/plugins/memcached/object-cache.php \
-#wordpress/wp-content
-#vendor/bin/wp theme update --all --path=wordpress
-#echo -e "\n";
-#echo -e "\e[42m\e[39m                                            \e[0m\e[0m";
-#echo -e "\e[42m\e[39m OPEN WP AND ACTIVATE THE FOLLOWING PLUGINS \e[0m\e[0m";
-#echo -e "\e[42m\e[39m Batcache Manager, GCS media plugin         \e[0m\e[0m";
-#echo -e "\e[42m\e[39m                                            \e[0m\e[0m";

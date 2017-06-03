@@ -4,9 +4,9 @@ BIN_FOLDER_PATH="/usr/local/bin"
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m               INSTALLING PHP              \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-add-apt-repository ppa:ondrej/php
-apt-get update
-apt-get remove php7.0
+add-apt-repository ppa:ondrej/php -y
+apt-get update -y
+apt-get remove -y php7.0
 apt-get install -y php7.1
 apt-get install -y php
 apt-get install -y php7.1-zip
