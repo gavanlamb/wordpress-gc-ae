@@ -24,8 +24,7 @@ gcloud sql instances create $SQL_SERVER_INSTANCE_NAME \
 --replication=$MYSQL_REPLICATION \
 --storage-auto-increase \
 --maintenance-window-day=$MAINTENANCE_WINDOW_DAY \
---maintenance-window-hour=$MAINTENANCE_WINDOW_HOUR ;
-
+--maintenance-window-hour=$MAINTENANCE_WINDOW_HOUR &&
 gcloud sql users set-password root /
 --instance=$SQL_SERVER_INSTANCE_NAME /
 --password=$SQL_ROOT_PASSWORD ;

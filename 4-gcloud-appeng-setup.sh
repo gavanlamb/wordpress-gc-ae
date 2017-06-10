@@ -15,9 +15,9 @@ echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m                CREATE BUCKET              \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-gsutil mb -c regional -l $GCE_REGION gs://$DOMAIN_FOR_BUCKET/ 
-gsutil mb -c regional -l $GCE_REGION gs://$DOMAIN_FOR_STAGING_BUCKET/ 
-gsutil defacl ch -u AllUsers:R gs://$DOMAIN_FOR_BUCKET
+gsutil mb -c regional -l $GCE_REGION gs://$DOMAIN_FOR_BUCKET/ &&
+gsutil mb -c regional -l $GCE_REGION gs://$DOMAIN_FOR_STAGING_BUCKET/ &&
+gsutil defacl ch -u AllUsers:R gs://$DOMAIN_FOR_BUCKET &&
 
 echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
@@ -31,15 +31,15 @@ cloud_sql_proxy \
 mysql -h 127.0.0.1 \
 --user="root" \
 --password="$SQL_ROOT_PASSWORD" \
---execute="create database $SQL_DB_NAME; create user $SQL_DB_USER@% identified by $SQL_DB_PASSWORD; grant all on $SQL_DB_NAME.* to $SQL_DB_USER@%; exit"
+--execute="create database $SQL_DB_NAME; create user $SQL_DB_USER@% identified by $SQL_DB_PASSWORD; grant all on $SQL_DB_NAME.* to $SQL_DB_USER@%; exit" &&
 
 echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m     INSTALLING COMPONENTS WITH COMPOSER   \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-cd wordpress
-composer install
-composer require php $PHP_VERSION
+cd wordpress &&
+composer install &&
+composer require php $PHP_VERSION &&
 
 echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
@@ -51,12 +51,12 @@ php wordpress-helper.php setup -n \
 --db_name=$SQL_DB_NAME \
 --db_user=$SQL_DB_USER \
 -p $PROJECT_ID \
---db_password=$SQL_DB_PASSWORD
+--db_password=$SQL_DB_PASSWORD &&
 
 echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m        DEPLOY AND BROWSE WORDPRESS        \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-cd wordpress-project
-gcloud app deploy --promote --stop-previous-version app.yaml cron.yaml
+cd wordpress-project &&
+gcloud app deploy --promote --stop-previous-version app.yaml cron.yaml &&
 gcloud app browse
