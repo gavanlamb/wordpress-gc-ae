@@ -1,15 +1,15 @@
 #!/bin/bash
-GCE_REGION="asia-northeast1"
-GCE_ZONE="a"
-GCE_TIER="db-n1-standard-1"
 GCE_INSTANCE_ACTIVATION_POLICY="ALWAYS"
 GCE_INSTANCE_BACKUP_TIME="02:00"
-MYSQL_VERSION="MYSQL_5_7"
-MYSQL_REPLICATION="SYNCHRONOUS"
+GCE_REGION="asia-northeast1"
+GCE_TIER="db-n1-standard-1"
+GCE_ZONE="a"
 MAINTENANCE_WINDOW_DAY="SUN"
-MAINTENANCE_WINDOW_HOUR="02"
-SQL_SERVER_INSTANCE_NAME="wp"
+MAINTENANCE_WINDOW_HOUR="03"
+MYSQL_REPLICATION="SYNCHRONOUS"
+MYSQL_VERSION="MYSQL_5_7"
 SQL_ROOT_PASSWORD="KL7wf1nggh"
+SQL_SERVER_INSTANCE_NAME="wp"
 
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m           Creating SQL instance           \e[0m\e[0m";

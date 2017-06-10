@@ -1,31 +1,32 @@
 #!/bin/bash
-#create a service account for the project, create a json key for this user
-PROJECT_ID="project-1"
+DOMAIN_FOR_BUCKET=""
+DOMAIN_FOR_STAGING_BUCKET=""
 GCE_REGION="asia-northeast1"
 GCE_ZONE="a"
-SQL_SERVER_INSTANCE_NAME="appengine-wp"
 PATH_TO_YOUR_SERVICE_ACCOUNT_JSON=""
-SQL_ROOT_PASSWORD="KL7wf1nggh"
+PROJECT_ID="project-1"
 SQL_DB_NAME="wp"
 SQL_DB_USER="wp"
 SQL_DB_PASSWORD="#569y8A4"
+SQL_ROOT_PASSWORD="KL7wf1nggh"
+SQL_SERVER_INSTANCE_NAME="wp"
 
 echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m                CREATE BUCKET              \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-gsutil mb gs://$PROJECT_ID.appspot.com/ 
-gsutil mb gs://staging.$PROJECT_ID.appspot.com/ 
-gsutil defacl ch -u AllUsers:R gs://$PROJECT_ID.appspot.com
+gsutil mb -c regional -l $GCE_REGION gs://$DOMAIN_FOR_BUCKET/ 
+gsutil mb -c regional -l $GCE_REGION gs://$DOMAIN_FOR_STAGING_BUCKET/ 
+gsutil defacl ch -u AllUsers:R gs://$DOMAIN_FOR_BUCKET
 
 echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m          CLOUD SQL PROXY SETUP &          \e[0m\e[0m";
 echo -e "\e[42m\e[39m       OPENNING MYSQL TO CREATE A DB       \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-./cloud_sql_proxy \
+cloud_sql_proxy \
 -dir /tmp/cloudsql \
--instances=$PROJECT_ID:$GCE_REGION-$GCE_ZONE:$SQL_SERVER_INSTANCE_NAME=tcp:3306 \
+-instances=$PROJECT_ID:$GCE_REGION:$SQL_SERVER_INSTANCE_NAME=tcp:3306 \
 -credential_file=$PATH_TO_YOUR_SERVICE_ACCOUNT_JSON & 
 mysql -h 127.0.0.1 \
 --user="root" \
