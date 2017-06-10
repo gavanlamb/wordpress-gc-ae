@@ -76,11 +76,13 @@ Variables
 | DOMAIN_FOR_STAGING_BUCKET | |  |
 | GCE_REGION | asia-northeast1 |  |
 | GCE_ZONE | a |  |
-| PROJECT_ID | project-1 |  |
 | PATH_TO_YOUR_SERVICE_ACCOUNT_JSON |  |  |
+| PROJECT_ID | project-1 |  |
 | SQL_DB_NAME | wp |  |
 | SQL_DB_USER | wp |  |
 | SQL_DB_PASSWORD | #569y8A4  |  |
+| SQL_ROOT_PASSWORD | KL7wf1nggh |  |
 | SQL_SERVER_INSTANCE_NAME | wp |  |
 | SQL_ROOT_PASSWORD | KL7wf1nggh |  |
+| WORDPRESS_URL |  |  |
 <br />  

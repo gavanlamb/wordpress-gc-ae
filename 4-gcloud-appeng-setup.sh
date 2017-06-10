@@ -10,6 +10,7 @@ SQL_DB_USER="wp"
 SQL_DB_PASSWORD="#569y8A4"
 SQL_ROOT_PASSWORD="KL7wf1nggh"
 SQL_SERVER_INSTANCE_NAME="wp"
+WORDPRESS_URL=""
 
 echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
@@ -45,12 +46,15 @@ echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m              SETUP WORDPRESS              \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-php wordpress-helper.php setup -n \
--d ./wordpress-project \
+php wordpress/wordpress-helper.php setup -n \
+--env=FLEXIBLE_ENV \
+--dir ./wordpress-project \
+--project_id $PROJECT_ID \
 --db_instance=$SQL_SERVER_INSTANCE_NAME \
 --db_name=$SQL_DB_NAME \
 --db_user=$SQL_DB_USER \
--p $PROJECT_ID \
+--db_password=$SQL_DB_PASSWORD \
+--wordpress_url=$WORDPRESS_URL \
 --db_password=$SQL_DB_PASSWORD &&
 
 echo -e "\n";
