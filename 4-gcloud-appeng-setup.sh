@@ -25,6 +25,8 @@ echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m          CLOUD SQL PROXY SETUP &          \e[0m\e[0m";
 echo -e "\e[42m\e[39m       OPENNING MYSQL TO CREATE A DB       \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
+gcloud sql users create $SQL_DB_USER % \
+--instance=$SQL_SERVER_INSTANCE_NAME --password=$SQL_DB_PASSWORD
 cloud_sql_proxy \
 -dir /tmp/cloudsql \
 -instances=$PROJECT_ID:$GCE_REGION:$SQL_SERVER_INSTANCE_NAME=tcp:3306 \
@@ -46,15 +48,14 @@ echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m              SETUP WORDPRESS              \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-php wordpress/wordpress-helper.php setup -n \
+php wordpress-helper.php setup -n \
 --env=FLEXIBLE_ENV \
+--db_region=$GCE_REGION \
 --dir ./wordpress-project \
---project_id $PROJECT_ID \
+--project_id=$PROJECT_ID \
 --db_instance=$SQL_SERVER_INSTANCE_NAME \
 --db_name=$SQL_DB_NAME \
 --db_user=$SQL_DB_USER \
---db_password=$SQL_DB_PASSWORD \
---wordpress_url=$WORDPRESS_URL \
 --db_password=$SQL_DB_PASSWORD &&
 
 echo -e "\n";
@@ -62,5 +63,8 @@ echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m        DEPLOY AND BROWSE WORDPRESS        \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 cd wordpress-project &&
-gcloud app deploy --promote --stop-previous-version app.yaml cron.yaml &&
+gcloud app deploy \
+--promote \
+--stop-previous-version \
+--bucket=$DOMAIN_FOR_STAGING_BUCKET app.yaml cron.yaml &&
 gcloud app browse

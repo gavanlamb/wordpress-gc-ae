@@ -69,6 +69,7 @@ Script: **4-gcloud-appeng-setup.sh**
 Assumption: you have a created a service account for the project and you've downloaded the json key.
 Creates bucket, setup cloud sql proxy and create a DB, installs components with composer, sets up wordpress, deploys and browses to wordpress.  
 Variables
+Possible Errors: error regarding credential file not being able to be written to, please change permissions on file(sudo chown -R $USER /home/USERNAME/.config)
   
 | Variable | Default Value | Notes |
 | --- | --- | --- |
