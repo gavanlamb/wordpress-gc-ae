@@ -49,6 +49,7 @@ class WordPressSetup extends Command
         'us-east1',
         'europe-west1',
         'asia-east1',
+		'asia-northeast1'
     );
 
     protected function configure()

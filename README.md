@@ -5,6 +5,10 @@
 * Some understanding of google cloud and app engine should be held  
 * You have enabled compute API for the project 
 * You have enabled google cloud SQL API
+
+###Possible Errors
+Error regarding credential file not being able to be written to, please change permissions on file(sudo chown -R $USER /home/USERNAME/.config)  
+Error regarding not being able to write to file, please change permissions(sudo chown -R $USER /home/gavan/.gsutil)  
   
 ### Before you begin
 Make each file executable by running **chmod +x script.sh**  
@@ -27,8 +31,7 @@ Variables
   
 | Variable | Default Value | Notes |  
 | --- | --- | --- |  
-| BIN_FOLDER_PATH | /usr/local/bin | Please make sure the path used is included in the **$PATH** variable |  
-| MYSQL_ROOT_PASSWORD_LOCAL | W0rdpass | |
+| BIN_FOLDER_PATH | /usr/local/bin | Please make sure the path used is included in the **$PATH** variable | 
 
 Removes  
 * PHP7.0  
@@ -45,7 +48,7 @@ Downloads cloud sql proxy and makes it executable
 <br />  
 
 #### 3) Setting up project  
-Script: **./3-gcloud-project-setup.sh**  
+Run: **./3-gcloud-project-setup.sh**  
 Creates gcp sql instance and sets the root password  
 Variables
   
@@ -65,12 +68,11 @@ Variables
 <br />  
  
 #### 4) Setting up app engine  
-Script: **4-gcloud-appeng-setup.sh**  
+Run: **./4-gcloud-appeng-setup.sh**  
 Assumption: you have a created a service account for the project and you've downloaded the json key.
 Creates bucket, setup cloud sql proxy and create a DB, installs components with composer, sets up wordpress, deploys and browses to wordpress.  
 Variables
-Possible Errors: error regarding credential file not being able to be written to, please change permissions on file(sudo chown -R $USER /home/USERNAME/.config)
-  
+
 | Variable | Default Value | Notes |
 | --- | --- | --- |
 | DOMAIN_FOR_BUCKET | |  |

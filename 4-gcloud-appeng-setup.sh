@@ -10,7 +10,6 @@ SQL_DB_USER="wp"
 SQL_DB_PASSWORD="#569y8A4"
 SQL_ROOT_PASSWORD="KL7wf1nggh"
 SQL_SERVER_INSTANCE_NAME="wp"
-WORDPRESS_URL=""
 
 echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
@@ -18,7 +17,7 @@ echo -e "\e[42m\e[39m                CREATE BUCKET              \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 gsutil mb -c regional -l $GCE_REGION gs://$DOMAIN_FOR_BUCKET/ &&
 gsutil mb -c regional -l $GCE_REGION gs://$DOMAIN_FOR_STAGING_BUCKET/ &&
-gsutil defacl ch -u AllUsers:R gs://$DOMAIN_FOR_BUCKET &&
+gsutil defacl ch -u AllUsers:R gs://$DOMAIN_FOR_STAGING_BUCKET &&
 
 echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
