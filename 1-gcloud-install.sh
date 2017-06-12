@@ -11,4 +11,7 @@ sudo apt-get install -y google-cloud-sdk &&
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m          PLEASE INITIALIZE GCLOUD         \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-gcloud init
+gcloud init &&
+
+sudo chown -R $USER /home/$USER/.config
+sudo chown -R $USER /home/$USER/.gsutil
