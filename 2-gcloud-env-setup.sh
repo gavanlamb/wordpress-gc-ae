@@ -1,4 +1,5 @@
 #!/bin/bash
+MYSQL_ROOT_PASSWORD_LOCAL="W0rdpass" 
 BIN_FOLDER_PATH="/usr/local/bin"
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m               INSTALLING PHP              \e[0m\e[0m";
@@ -16,6 +17,16 @@ echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 echo -e "\e[42m\e[39m            INSTALLING COMPOSER            \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 apt-get install -y composer ;
+
+echo -e "\n";
+echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
+echo -e "\e[42m\e[39m          INSTALLING MYSQL CLIENT          \e[0m\e[0m";
+echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
+apt-get update ;
+echo "mysql-server mysql-server/root_password password W0rdpass" | debconf-set-selections &&
+echo "mysql-server mysql-server/root_password_again password W0rdpass" | debconf-set-selections &&
+apt -y install mysql-server &&
+usermod -d /var/lib/mysql/ mysql ;
 
 echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";

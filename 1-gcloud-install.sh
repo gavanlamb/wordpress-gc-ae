@@ -13,5 +13,5 @@ echo -e "\e[42m\e[39m          PLEASE INITIALIZE GCLOUD         \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 gcloud init &&
 
-sudo chown -R $USER /home/$USER/.config
-sudo chown -R $USER /home/$USER/.gsutil
+sudo chown -R $SUDO_USER /home/$SUDO_USER/.config
+sudo chown -R $SUDO_USER /home/$SUDO_USER/.gsutil

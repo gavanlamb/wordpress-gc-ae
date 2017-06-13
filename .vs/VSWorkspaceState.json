@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\wordpress",
+    "\\wordpress\\src",
+    "\\wordpress\\src\\files",
+    "\\wordpress\\src\\files\\flexible"
   ],
-  "SelectedNode": "\\2-gcloud-project-setup.sh",
+  "SelectedNode": "\\4-gcloud-appeng-setup.sh",
   "PreviewInSolutionExplorer": false
 }
