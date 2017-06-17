@@ -17,22 +17,17 @@ chmod +x 1-gcloud-install.sh
 chmod +x 2-gcloud-env-setup.sh  
 chmod +x 3-gcloud-project-setup.sh  
 chmod +x 4-gcloud-appeng-setup.sh  
-chmod +x 5-gcloud-appeng-update.sh  
+chmod +x 5-gcloud-appeng-deploy.sh  
   
 ### Running each script
-#### 1) Install google cloud locally
+#### 1) Install google cloud and setup default account
 Run: **sudo ./1-gcloud-install.sh**  
-Setups google cloud in bash.
+Description: Setups google cloud in bash.
 <br />  
 
-#### 2) Setting up the local evironment
+#### 2) Set up the local evironment
 Run: **sudo ./2-gcloud-env-setup.sh**  
-Variables
-  
-| Variable | Default Value | Notes |  
-| --- | --- | --- |  
-| BIN_FOLDER_PATH | /usr/local/bin | Please make sure the path used is included in the **$PATH** variable | 
-
+Description:
 Removes  
 * PHP7.0  
   
@@ -44,12 +39,19 @@ Installs
 * Composer  
 * MySQL  
   
-Downloads cloud sql proxy and makes it executable
+Downloads cloud sql proxy and makes it executable  
+  
+Variables
+  
+| Variable | Default Value | Notes |  
+| --- | --- | --- |  
+| BIN_FOLDER_PATH | /usr/local/bin | Please make sure the path used is included in the **$PATH** variable | 
+
 <br />  
 
-#### 3) Setting up project  
+#### 3) Creates GCP SQL instance   
 Run: **./3-gcloud-project-setup.sh**  
-Creates gcp sql instance and sets the root password  
+Description: Creates gcp sql instance and sets the root password  
 Variables
   
 | Variable | Default Value | Notes |  
@@ -69,8 +71,8 @@ Variables
  
 #### 4) Setting up app engine  
 Run: **./4-gcloud-appeng-setup.sh**  
-Assumption: you have a created a service account for the project and you've downloaded the json key.
-Creates bucket, setup cloud sql proxy and create a DB, installs components with composer, sets up wordpress, deploys and browses to wordpress.  
+Assumption: you have created a service account for the project and you've downloaded the json key.
+Description: Creates bucket, setup cloud sql proxy and creates a DB, installs components with composer, and sets up wordpress.
 Variables
 
 | Variable | Default Value | Notes |
@@ -89,3 +91,58 @@ Variables
 | SQL_ROOT_PASSWORD | KL7wf1nggh |  |
 | WORDPRESS_URL |  |  |
 <br />  
+
+#### 5) Deploy to app engine  
+Run: **./5-gcloud-appeng-deploy.sh**
+Assumption: **./4-gcloud-appeng-setup.sh** has been run and everything has been setup.
+Description: deploys wordpress to app engine
+
+| Variable | Default Value | Notes |
+| --- | --- | --- |
+| DOMAIN_FOR_STAGING_BUCKET | |  |
+
+### After installation
+Go to the Dashboard, and in the Plugins page, activate the following
+plugins:
+- Batcache Manager
+- GCS media plugin
+
+After activating the plugins, try uploading a media and confirm the
+image is uploaded to the GCS bucket.
+
+### Various workflows
+
+#### Install/Update plugins/themes
+
+Because the wp-content directory on the server is read-only, you have
+to do this locally. Run WordPress locally and update plugins/themes in
+the local Dashboard, then deploy, then activate them in the production
+Dashboard. You can also use the `wp-cli` utility as follows:
+
+```
+**To update all the plugins**
+$ vendor/bin/wp plugin update --all --path=wordpress
+**To update all the themes**
+$ vendor/bin/wp theme update --all --path=wordpress
+```
+
+#### Remove plugins/themes
+
+First Deactivate them in the production Dashboard, then remove them
+completely locally. The next deployment will remove those files from
+the production environment.
+
+#### Update WordPress itself
+
+Most of the case, just download the newest WordPress and overwrite the
+existing wordpress directory. It is still possible that the existing
+config files are not compatible with the newest WordPress, so please
+update the config file manually in that case.
+
+#### Update the base image
+
+We sometimes release the security update for
+[the php-docker image][php-docker]. Then you’ll have to re-deploy your
+WordPress instance to get the security update.
+
+Enjoy your WordPress installation!

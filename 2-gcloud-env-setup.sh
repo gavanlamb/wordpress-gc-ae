@@ -20,7 +20,7 @@ apt-get install -y composer ;
 
 echo -e "\n";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-echo -e "\e[42m\e[39m          INSTALLING MYSQL CLIENT          \e[0m\e[0m";
+echo -e "\e[42m\e[39m             INSTALLING MYSQL              \e[0m\e[0m";
 echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
 apt-get update ;
 echo "mysql-server mysql-server/root_password password W0rdpass" | debconf-set-selections &&

@@ -55,15 +55,4 @@ php wordpress-helper.php setup -n \
 --db_instance=$SQL_SERVER_INSTANCE_NAME \
 --db_name=$SQL_DB_NAME \
 --db_user=$SQL_DB_USER \
---db_password=$SQL_DB_PASSWORD &&
-
-echo -e "\n";
-echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-echo -e "\e[42m\e[39m        DEPLOY AND BROWSE WORDPRESS        \e[0m\e[0m";
-echo -e "\e[42m\e[39m                                           \e[0m\e[0m";
-cd wordpress-project &&
-gcloud app deploy \
---promote \
---stop-previous-version \
---bucket=$DOMAIN_FOR_STAGING_BUCKET app.yaml cron.yaml &&
-gcloud app browse
+--db_password=$SQL_DB_PASSWORD 
